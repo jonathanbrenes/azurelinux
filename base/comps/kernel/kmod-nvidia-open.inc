@@ -1,12 +1,12 @@
 # kmod-nvidia-open.inc — NVIDIA open GPU kernel module subpackage
 #
 # Phases: package, prep, build, install, files
-# Activated by: %{run_kmod_phase <phase>} from kmod-macros.inc
+# Activated by: setting _kmod_phase global + include from kernel.comp.toml overlays
 #
 # Requires these defines/sources in kernel.spec (injected via comp.toml overlays):
-#   %{nvidia_open_version}  — NVIDIA driver version (e.g. 595.58.03)
-#   %{SOURCE6000}           — open-gpu-kernel-modules tarball
-#   %{SOURCE6001}           — kmod-nvidia-open-modprobe.conf
+#   nvidia_open_version  — NVIDIA driver version (e.g. 595.58.03)
+#   SOURCE6000           — open-gpu-kernel-modules tarball
+#   SOURCE6001           — kmod-nvidia-open-modprobe.conf
 
 # =========================================================================
 # Phase: package — subpackage declaration
@@ -88,18 +88,18 @@ popd
 %if %{with_up_base}
 %ifnarch noarch %nobuildarches
 %{log_msg "Installing NVIDIA open GPU kernel modules for %{KVERREL}"}
-install -d $RPM_BUILD_ROOT/lib/modules/%{KVERREL}/extra/nvidia
+install -d %{buildroot}/lib/modules/%{KVERREL}/extra/nvidia
 for mod in nvidia nvidia-modeset nvidia-drm nvidia-uvm nvidia-peermem; do
     ko="%{_builddir}/open-gpu-kernel-modules-%{nvidia_open_version}/kernel-open/${mod}.ko"
     if [ -f "${ko}" ]; then
-        install -m 0644 "${ko}" $RPM_BUILD_ROOT/lib/modules/%{KVERREL}/extra/nvidia/
+        install -m 0644 "${ko}" %{buildroot}/lib/modules/%{KVERREL}/extra/nvidia/
     fi
 done
 # Install modprobe config to blacklist conflicting modules
-install -D -m 0644 %{SOURCE6001} $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.d/kmod-%{_kmod_name}.conf
+install -D -m 0644 %{SOURCE6001} %{buildroot}%{_sysconfdir}/modprobe.d/kmod-%{_kmod_name}.conf
 # Install depmod override config
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d
-cat > $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/kmod-%{_kmod_name}.conf << 'DEPMOD_EOF'
+install -d %{buildroot}%{_sysconfdir}/depmod.d
+cat > %{buildroot}%{_sysconfdir}/depmod.d/kmod-%{_kmod_name}.conf << 'DEPMOD_EOF'
 override nvidia %{KVERREL} extra/nvidia
 override nvidia-modeset %{KVERREL} extra/nvidia
 override nvidia-drm %{KVERREL} extra/nvidia
@@ -108,7 +108,7 @@ override nvidia-peermem %{KVERREL} extra/nvidia
 DEPMOD_EOF
 # Install NVIDIA license file
 install -D -m 0644 %{_builddir}/open-gpu-kernel-modules-%{nvidia_open_version}/COPYING \
-    $RPM_BUILD_ROOT%{_datadir}/licenses/kmod-%{_kmod_name}/COPYING
+    %{buildroot}%{_datadir}/licenses/kmod-%{_kmod_name}/COPYING
 %endif
 %endif
 
@@ -120,10 +120,10 @@ install -D -m 0644 %{_builddir}/open-gpu-kernel-modules-%{nvidia_open_version}/C
 %if "%{_kmod_phase}" == "files"
 
 %post -n kmod-%{_kmod_name}
-/usr/sbin/depmod -a %{KVERREL} || :
+%{_sbindir}/depmod -a %{KVERREL} || :
 
 %postun -n kmod-%{_kmod_name}
-/usr/sbin/depmod -a %{KVERREL} || :
+%{_sbindir}/depmod -a %{KVERREL} || :
 
 %files -n kmod-%{_kmod_name}
 %license %{_datadir}/licenses/kmod-%{_kmod_name}/COPYING
