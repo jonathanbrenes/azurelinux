@@ -79,6 +79,28 @@ ci: pin azldev runner image to a tagged release
 Use the body to explain *why* a change is needed when the reason isn't obvious from the
 diff. Reference issues or upstream bugs in footers when applicable.
 
+### Writing commit messages
+
+Because we rebase-merge, every commit message becomes part of the permanent linear
+history of the development branch. A reviewer (and `git log` / `git blame` years from
+now) should be able to understand a change from its message alone, without opening the
+PR. Concretely:
+
+- **Always include a body** for any non-trivial change. The summary line tells you
+  *what* changed; the body should tell you *why*, what alternatives were considered,
+  and any context a future reader will need (linked issues, upstream bugs, behavioral
+  implications, follow-up work). One-liners are only appropriate for changes that are
+  self-evident from the diff (e.g., a typo fix).
+- **Wrap the summary at ~50 characters** and the body at ~72. Hard limits aren't
+  enforced, but staying close keeps `git log` readable in a standard terminal.
+- **Separate the summary from the body with a blank line.** Without it, `git` and most
+  tooling treat the entire message as the summary.
+- **Write in the imperative mood** ("add cowsay component", not "added" or "adds"), as
+  if completing the sentence "If applied, this commit will…".
+- **Don't rely on auto-generated trailers alone.** Trailers like agent-log or
+  co-authored-by links are fine *in addition to* a real message, but a commit whose
+  body contains only trailers is not acceptable on the development branch.
+
 ### Validating your commits
 
 Before pushing, validate each commit, not just the tip of the branch. The minimum bar:
