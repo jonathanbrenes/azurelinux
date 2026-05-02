@@ -1,3 +1,0 @@
-#Type Name     ID             GECOS                 Home directory Shell
-g varnish -
-u varnish - "Varnish Cache" /var/lib/varnish /sbin/nologin

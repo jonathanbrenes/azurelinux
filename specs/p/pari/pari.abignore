@@ -1,5 +1,0 @@
-# Constant array of function descriptors that clients trawl through
-# Changes in size of this array don't matter
-[suppress_variable]
-  type_kind = array
-  name = functions_basic

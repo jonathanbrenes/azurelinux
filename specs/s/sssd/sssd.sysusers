@@ -1,1 +1,0 @@
-u     sssd   -   "User for sssd"     /run/sssd/      /sbin/nologin

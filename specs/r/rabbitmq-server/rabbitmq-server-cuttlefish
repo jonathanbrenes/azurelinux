@@ -1,6 +1,0 @@
-#!/usr/bin/escript
-%%
-%%! -noshell -noinput
-
-main (Args) ->
-	cuttlefish_escript:main(Args).

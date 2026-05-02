@@ -1,3 +1,0 @@
-# libplasma
-
-The libplasma package

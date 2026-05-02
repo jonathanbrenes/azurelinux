@@ -1,3 +1,0 @@
-USER=root
-PROGRAM=--PATH--/chkrootkit
-SESSION=true

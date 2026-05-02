@@ -1,3 +1,0 @@
-# knighttime
-
-The knighttime package

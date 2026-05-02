@@ -1,3 +1,0 @@
-# ksystemstats
-
-The ksystemstats package
