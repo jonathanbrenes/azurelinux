@@ -135,7 +135,7 @@ packages = [
     "cairomm-doc", # srpm: cairomm
     "capstone-static", # srpm: capstone
     "captree", # srpm: libcap
-    "cargo-rpm-macros", # srpm: cargo-rpm-macros, rust-packaging
+    "cargo-rpm-macros", # srpm: cargo-rpm-macros
     "ccache-swig", # srpm: swig
     "cdparanoia", # srpm: cdparanoia
     "cdparanoia-devel", # srpm: cdparanoia

@@ -5176,7 +5176,7 @@ packages = [
     "rust-gdb", # srpm: rust
     "rust-lldb", # srpm: rust
     "rust-src", # srpm: rust
-    "rust-srpm-macros", # srpm: cargo-rpm-macros, rust-packaging
+    "rust-srpm-macros", # srpm: cargo-rpm-macros
     "rust-std-static", # srpm: rust
     "rust-std-static-aarch64-unknown-none-softfloat", # srpm: rust
     "rust-std-static-aarch64-unknown-uefi", # srpm: rust
