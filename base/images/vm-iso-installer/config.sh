@@ -121,7 +121,11 @@ EXTRA_REPO_PKGS=(
 )
 
 echo "=== Downloading target-install packages + dependencies ==="
+# The azurelinux-repos RPM provides repo ID "azurelinux" (the base repo).
+# Constrain downloads to only this repo to prevent leakage from debuginfo/source.
 dnf download \
+    --disablerepo='*' \
+    --enablerepo=azurelinux \
     --resolve \
     --alldeps \
     --destdir="$OFFLINE_REPO" \

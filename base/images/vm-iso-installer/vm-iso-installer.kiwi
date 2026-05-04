@@ -27,14 +27,13 @@
         </type>
     </preferences>
 
-    <!-- Both arch repos are listed; dnf5 only installs packages for the build arch -->
-    <repository type="rpm-md" alias="azl4-alpha2-x86_64">
+    <repository type="rpm-md" alias="azurelinux-base">
         <source
-            path="https://stcontroltowerdevjwisitg.blob.core.windows.net/alpha2-prod/base/x86_64/" />
+            path="https://stcontroltowerdevjwisitg.blob.core.windows.net/alpha2-prod/base/$basearch" />
     </repository>
-    <repository type="rpm-md" alias="azl4-alpha2-aarch64">
+    <repository type="rpm-md" alias="azurelinux-sdk">
         <source
-            path="https://stcontroltowerdevjwisitg.blob.core.windows.net/alpha2-prod/base/aarch64/" />
+            path="https://stcontroltowerdevjwisitg.blob.core.windows.net/alpha2-prod/sdk/$basearch" />
     </repository>
 
     <packages type="image">
@@ -46,7 +45,7 @@
         <!-- Core system -->
         <package name="bash" />
         <package name="ca-certificates" />
-        <package name="coreutils-single" />
+        <package name="coreutils" />
         <package name="cracklib-dicts" />
         <package name="dnf5" />
         <package name="glibc" />
