@@ -1,0 +1,6 @@
+# Services needed by anaconda at ISO boot
+enable dbus-broker.service
+enable NetworkManager.service
+enable systemd-networkd.service
+enable systemd-resolved.service
+enable serial-getty@ttyS0.service
